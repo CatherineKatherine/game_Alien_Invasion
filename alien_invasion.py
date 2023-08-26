@@ -1,5 +1,6 @@
 import sys
 import pygame
+from settings import Settings
 
 
 class AlienInvasion:
@@ -8,10 +9,12 @@ class AlienInvasion:
     def __init__(self):
         """Инициализируем игру и создает игровые ресурсы"""
         pygame.init()
+        self.settings = Settings()  # создаем экзепляр класса Settings
 
-        #  Создаем окно, в котором прорисавываются все графические элементы игры.
-        #  Аргумент (1200, 800) - кортеж, определяющий размеры игрового окна
-        self.screen = pygame.display.set_mode((1200, 800))  # поверхность
+        #  Создаем окно (поверхность), в котором прорисавываются все графические элементы игры.
+        #  При создании экрана используются атрибуты screen_width и screen_height объекта self.settings
+        self.screen = pygame.display.set_mode(
+            (self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("Alien Invasion")
 
         #  Назначение цвета фона
@@ -26,7 +29,8 @@ class AlienInvasion:
                     sys.exit()
 
             #  При каждом проходе цикла перерисовывается экран
-            self.screen.fill(self.bg_color)
+            #  Для получения цвета фона при заполнении экрана используется объект self.settings
+            self.screen.fill(self.settings.bg_color)
 
             #  Отображение последнего прорисованного экрана
             pygame.display.flip()
