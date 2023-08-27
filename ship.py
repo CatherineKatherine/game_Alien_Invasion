@@ -1,5 +1,6 @@
 import pygame
 
+
 class Ship:
     """Класс управления кораблём"""
 
@@ -24,7 +25,6 @@ class Ship:
         self.moving_right = False
         self.moving_left = False
 
-
     def update(self):
         """Обновляет позицию корабля с учетом флагов"""
         # обновляется атрибут x, не rect
@@ -35,7 +35,6 @@ class Ship:
 
         # Обновление атрибута rect на основании self.x
         self.rect.x = self.x
-
 
     def blitne(self):
         """Рисует корабль в текущей позиции"""
