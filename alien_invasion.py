@@ -24,6 +24,8 @@ class AlienInvasion:
         self.bg_color = (230, 230, 230)
 
         self.ship = Ship(self)
+        self.bullets = pygame.sprite.Group()
+
 
     def run_game(self):
         """Запуск основного цикла игры"""
@@ -33,6 +35,7 @@ class AlienInvasion:
             # позиция корабля будет обновляться после проверки событий клавиатуры,
             # но перед обновление экрана
             self.ship.update()
+            self.bullets.update()  # позиция снаряда будет обновляться при каждом проходе цикла
             self._update_screen()  # вспомогательный метод
 
 
