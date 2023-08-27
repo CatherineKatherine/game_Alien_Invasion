@@ -1,6 +1,7 @@
 import sys
 import pygame
 from settings import Settings
+from ship import Ship
 
 
 class AlienInvasion:
@@ -20,6 +21,8 @@ class AlienInvasion:
         #  Назначение цвета фона
         self.bg_color = (230, 230, 230)
 
+        self.ship = Ship(self)
+
     def run_game(self):
         """Запуск основного цикла игры"""
         while True:
@@ -31,6 +34,8 @@ class AlienInvasion:
             #  При каждом проходе цикла перерисовывается экран
             #  Для получения цвета фона при заполнении экрана используется объект self.settings
             self.screen.fill(self.settings.bg_color)
+
+            self.ship.blitne()
 
             #  Отображение последнего прорисованного экрана
             pygame.display.flip()
