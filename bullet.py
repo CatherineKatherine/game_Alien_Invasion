@@ -1,6 +1,7 @@
 import pygame
 from pygame.sprite import Sprite
 
+
 class Bullet(Sprite):
     """Класс для управления снарядами, выпуценными кораблем"""
 
@@ -17,6 +18,7 @@ class Bullet(Sprite):
 
         # Позиция снаряда хранится в вещественном формате
         self.y = float(self.rect.y)
+        self.x = float(self.rect.x)
 
     def update(self):
         """Перемещает снаряд вверх по экрану"""
