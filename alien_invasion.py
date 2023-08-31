@@ -27,6 +27,7 @@ class AlienInvasion:
 
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
+        self.aliens = pygame.sprite.Group()
 
         self._create_fleet()  # вспомогательный метод для создания флота
 
@@ -98,9 +99,24 @@ class AlienInvasion:
 
     def _create_fleet(self):
         """Создание флота вторжения"""
-        # создание пришельца
-        alien = Alien(self)
-        self.aliens.add(alien)
+        # Создание пришельца и вычисление количества пришельцев в ряду
+        # Интервал между соседними пришельцами равен ширине пришельца
+        alien = Alien(self)  # создание пришельца, он не войдет во флот и не включается в группу aliens
+        alien_width = alien.rect.width  # ширина пришельца определяется по его атрибуту rect
+        # вычисляется доступное горизонтальное пространство и количество пришельцев, которые в нем поместятся
+        available_space_x = self.settings.screen_width - (2 * alien_width)
+        number_aliens_x = available_space_x // (2 * alien_width)
+
+        # создание первого ряда пришельцев
+        for alien_number in range(number_aliens_x):
+            # Создание пришельца и размещение его в ряду
+            alien = Alien(self)  # создается новый пришелец
+            # пришелец сдвиггается вправо на одну ширину от левого края поля.
+            # 2 * alien_width - полное пространство выделенное на одного пришельца (две ширины пришельца)
+            alien.x = alien_width + 2 * alien_width * alien_number
+            alien.rect.x = alien.x
+            self.aliens.add(alien)  # новый пришелец добавляется в группу
+
 
     def _update_screen(self):
         """Обновляет изображения на экране и отображает новый экран"""
