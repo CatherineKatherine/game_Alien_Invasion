@@ -98,6 +98,11 @@ class AlienInvasion:
                     or (bullet.rect.right <= 0):
                 self.bullets.remove(bullet)
 
+        # Проверка попаданий в пришельцев.
+        # При обнаружении попадания улить снаряд и пришельца.
+        collisions = pygame.sprite.groupcollide(
+            self.bullets, self.aliens, True, True)
+
     def _update_aliens(self):
         """Проверяет, достиг ли флот края экрана,
             с последиющим обновлением позиций всех пришельцев во флоте"""
