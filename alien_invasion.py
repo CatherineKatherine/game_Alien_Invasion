@@ -43,6 +43,7 @@ class AlienInvasion:
             # вспомогательные методы
             self._update_bullets()
             self._update_screen()
+            self._update_aliens()
 
     def _check_events(self):
         """Обрабатывает нажатия клавиш и события мыши"""
@@ -96,6 +97,9 @@ class AlienInvasion:
                     or (bullet.rect.left >= self.ship.screen_rect.right) \
                     or (bullet.rect.right <= 0):
                 self.bullets.remove(bullet)
+    def _update_aliens(self):
+        """Обновляет позиции всех пришельцев во флоте"""
+        self.aliens.update()
 
     def _create_fleet(self):
         """Создание флота вторжения"""
