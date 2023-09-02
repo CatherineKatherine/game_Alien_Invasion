@@ -103,6 +103,12 @@ class AlienInvasion:
         collisions = pygame.sprite.groupcollide(
             self.bullets, self.aliens, True, True)
 
+        if not self.aliens:
+            # Уничтожение существующих снарядов и создание нового флота.
+            # Сразу после уничтожения текущего флота на экране появляется новый флот.
+            self.bullets.empty()
+            self._create_fleet()
+
     def _update_aliens(self):
         """Проверяет, достиг ли флот края экрана,
             с последиющим обновлением позиций всех пришельцев во флоте"""
