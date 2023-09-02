@@ -22,6 +22,4 @@ class Settings:
         self.alien_speed = 1.0
         self.fleet_drop_speed = 10
         # fleet_direction = 1 - движение вправо; -1 - влево
-        self.fleet_drop_speed = 1
-
-
+        self.fleet_direction = 1
