@@ -99,29 +99,39 @@ class AlienInvasion:
 
     def _create_fleet(self):
         """Создание флота вторжения"""
-        # Создание пришельца и вычисление количества пришельцев в ряду
-        # Интервал между соседними пришельцами равен ширине пришельца
         alien = Alien(self)  # создание пришельца, он не войдет во флот и не включается в группу aliens
-        alien_width = alien.rect.width  # ширина пришельца определяется по его атрибуту rect
-        # вычисляется доступное горизонтальное пространство и количество пришельцев, которые в нем поместятся
+        alien_width, alien_height = alien.rect.size  # size содержит кортеж с шириной и высотой объекта rect
+
+        # Вычисляется доступное горизонтальное пространство и количество пришельцев, которые в нем поместятся.
+        # Интервал между соседними пришельцами равен ширине пришельца.
         available_space_x = self.settings.screen_width - (2 * alien_width)
-        number_aliens_x = available_space_x // (2 * alien_width)
+        number_aliens_x = available_space_x // (2 * alien_width)  # количество пришельцев в ряду
 
-        # создание первого ряда пришельцев
-        for alien_number in range(number_aliens_x):
-            self._create_alien(alien_number)
+        # Определяет количество рядов, помещающихся на экране.
+        ship_height = self.ship.rect.height
+        available_space_y = self.settings.screen_height - (3 * alien_height) - ship_height
+        number_rows = available_space_y // (2 * alien_height)
 
+        # Создание флота
+        for row_number in range(number_rows):
+            for alien_number in range(number_aliens_x):
+                self._create_alien(alien_number, row_number)
 
-    def _create_alien(self, alien_number):
+    def _create_alien(self, alien_number, row_number):
         """Создание пришельца и размещение его в ряду"""
         alien = Alien(self)  # создается новый пришелец
-        alien_width = alien.rect.width
-        # пришелец сдвигается вправо на одну ширину от левого края поля.
+        alien_width, alien_height = alien.rect.size
+
+        # Пришелец сдвигается вправо на одну ширину от левого края поля.
         # 2 * alien_width - полное пространство выделенное на одного пришельца (две ширины пришельца)
         alien.x = alien_width + 2 * alien_width * alien_number
         alien.rect.x = alien.x
-        self.aliens.add(alien)  # новый пришелец добавляется в группу
 
+        # Прибавляется одна высота пришельца, чтобы создать пустое место у вехнего края экрана.
+        # Каждый новый ряд начинается на две высоты ниже последнего ряда - 2 * alien.rect.height
+        # Номер первого ряда равен 0
+        alien.rect.y = alien.rect.height + 2 * alien.rect.height * row_number
+        self.aliens.add(alien)  # новый пришелец добавляется в группу
 
     def _update_screen(self):
         """Обновляет изображения на экране и отображает новый экран"""
