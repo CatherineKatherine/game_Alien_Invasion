@@ -109,13 +109,18 @@ class AlienInvasion:
 
         # создание первого ряда пришельцев
         for alien_number in range(number_aliens_x):
-            # Создание пришельца и размещение его в ряду
-            alien = Alien(self)  # создается новый пришелец
-            # пришелец сдвиггается вправо на одну ширину от левого края поля.
-            # 2 * alien_width - полное пространство выделенное на одного пришельца (две ширины пришельца)
-            alien.x = alien_width + 2 * alien_width * alien_number
-            alien.rect.x = alien.x
-            self.aliens.add(alien)  # новый пришелец добавляется в группу
+            self._create_alien(alien_number)
+
+
+    def _create_alien(self, alien_number):
+        """Создание пришельца и размещение его в ряду"""
+        alien = Alien(self)  # создается новый пришелец
+        alien_width = alien.rect.width
+        # пришелец сдвигается вправо на одну ширину от левого края поля.
+        # 2 * alien_width - полное пространство выделенное на одного пришельца (две ширины пришельца)
+        alien.x = alien_width + 2 * alien_width * alien_number
+        alien.rect.x = alien.x
+        self.aliens.add(alien)  # новый пришелец добавляется в группу
 
 
     def _update_screen(self):
