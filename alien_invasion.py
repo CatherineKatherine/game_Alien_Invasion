@@ -1,6 +1,8 @@
 import sys
+from time import sleep
 import pygame
 from settings import Settings
+from game_stats import GameStats
 from ship import Ship
 from bullet import Bullet
 from alien import Alien
@@ -24,6 +26,9 @@ class AlienInvasion:
 
         #  Назначение цвета фона
         self.bg_color = (230, 230, 230)
+
+        # Создание экземпляра для хранения игровой статистики
+        self.stats = GameStats(self)
 
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
@@ -112,12 +117,31 @@ class AlienInvasion:
             self.bullets.empty()
             self._create_fleet()
 
+    def _ship_hit(self):
+        """Обрабатывает столкнвоение корабля с пришельцем."""
+        # Уменьшение ship_left.
+        self.stats.ships_left -= 1
+
+        # Очистка списков пришельцев и снарядов.
+        self.aliens.empty()
+        self.bullets.empty()
+
+        # Создание нового флота и размещение корабля в центре.
+        self._create_fleet()
+        self.ship.center_ship()
+
+        # Пауза.
+        sleep(0.5)
 
     def _update_aliens(self):
         """Проверяет, достиг ли флот края экрана,
             с последиющим обновлением позиций всех пришельцев во флоте"""
         self._check_fleet_edges()
         self.aliens.update()
+
+        # Проверка коллизий "пришелец - корабль"
+        if pygame.sprite.spritecollideany(self.ship, self.aliens):
+            self._ship_hit()
 
     def _create_fleet(self):
         """Создание флота вторжения"""
