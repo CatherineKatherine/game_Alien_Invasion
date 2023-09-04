@@ -118,20 +118,23 @@ class AlienInvasion:
             self._create_fleet()
 
     def _ship_hit(self):
-        """Обрабатывает столкнвоение корабля с пришельцем."""
-        # Уменьшение ship_left.
-        self.stats.ships_left -= 1
+        """Обрабатывает столкновение корабля с пришельцем."""
+        if self.stats.ships_left > 0:
+            # Уменьшение ship_left.
+            self.stats.ships_left -= 1
 
-        # Очистка списков пришельцев и снарядов.
-        self.aliens.empty()
-        self.bullets.empty()
+            # Очистка списков пришельцев и снарядов.
+            self.aliens.empty()
+            self.bullets.empty()
 
-        # Создание нового флота и размещение корабля в центре.
-        self._create_fleet()
-        self.ship.center_ship()
+            # Создание нового флота и размещение корабля в центре.
+            self._create_fleet()
+            self.ship.center_ship()
 
-        # Пауза.
-        sleep(0.5)
+            # Пауза.
+            sleep(0.5)
+        else:
+            self.stats.game_active = False
 
     def _update_aliens(self):
         """Проверяет, достиг ли флот края экрана,
