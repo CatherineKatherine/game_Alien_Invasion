@@ -41,14 +41,15 @@ class AlienInvasion:
         while True:
             self._check_events()  # вспомогательный метод
 
-            # позиция корабля будет обновляться после проверки событий клавиатуры,
-            # но перед обновление экрана
-            self.ship.update()
+            if self.stats.game_active:
+                # позиция корабля будет обновляться после проверки событий клавиатуры,
+                # но перед обновление экрана
+                self.ship.update()
 
-            # вспомогательные методы
-            self._update_bullets()
-            self._update_screen()
-            self._update_aliens()
+                # вспомогательные методы
+                self._update_bullets()
+                self._update_screen()
+                self._update_aliens()
 
     def _check_events(self):
         """Обрабатывает нажатия клавиш и события мыши"""
