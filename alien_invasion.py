@@ -148,6 +148,7 @@ class AlienInvasion:
             # Сразу после уничтожения текущего флота на экране появляется новый флот.
             self.bullets.empty()
             self._create_fleet()
+            self.settings.increase_speed()
 
     def _ship_hit(self):
         """Обрабатывает столкновение корабля с пришельцем."""
