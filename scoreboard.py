@@ -27,4 +27,4 @@ class Scoreboard:
 
     def show_score(self):
         """Выводит счет на экран."""
-        self.screen.blit.(self.score_image, self.score_rect)
+        self.screen.blit(self.score_image, self.score_rect)
