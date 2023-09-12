@@ -1,4 +1,4 @@
-class GameStats():
+class GameStats:
     """Отслеживание статистики для игры Alien Invasion"""
 
     def __init__(self, ai_game):
@@ -8,6 +8,9 @@ class GameStats():
 
         # Игра Alien Invasion запускается в активном состоянии.
         self.game_active = False
+
+        # Рекорд не должен сбрасываться.
+        self.high_score = 0
 
     def reset_stats(self):
         """Инициализирует статистику, изменяющуюся в ходе игры"""
